@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+<head>  
+<meta charset="UTF-8">
+	<script>
+		window.onload = function () {
+
+			// Bitcoin sparkline
+			const sparklineRaw = [
+                    "47821.4001655584179855760000",
+                    "47674.8341207258871160400000",
+                    "47255.4926829181004464640000",
+                    "47090.9231782977996065570000",
+                    "47183.3016067486308186490000",
+                    "47172.9562995415800126680000",
+                    "47140.0904041429684637110000",
+                    "47208.6064388714767518250000",
+                    "47196.9199776176635621700000",
+                    "47016.5492485633963595370000",
+                    "46137.7969914479444548150000",
+                    "46719.4306746958916680250000",
+                    "46958.0588237348950629530000",
+                    "46819.3502392399513362800000",
+                    "46915.0112244128295306850000",
+                    "46845.6391435704400548200000",
+                    "46453.8346532234129444960000",
+                    "46779.3750883331430038140000",
+                    "46337.6491452716361504120000",
+                    "46425.9175495904096375450000",
+                    "46154.0057452359532542030000",
+                    "46003.4405519782057302210000",
+                    "45869.8742775118177664200000",
+                    "45997.7018885121593155070000",
+                    "46290.1903479527947901240000",
+                    "46469.8466139087866635310000",
+                    "46709.1114753545582761960000"
+            ]
+
+			// convert items from string to a number 
+			let sparkline = []
+			sparklineRaw.forEach(item => sparkline.push(+item))
+			
+			// make an array, that contain a y object each 
+			var dataObj = []
+			sparkline.forEach((item) => {
+				var temp = {}
+				temp.y = item
+
+				dataObj.push(temp)
+			})
+
+			// generate the canvas
+			var chart2 = new CanvasJS.Chart("chartContainer2", {
+				animationEnabled: true,
+				theme: "light2",
+				title:{
+					text: "Bitcoin 24h Prices"
+				},
+				axisY:{
+					includeZero: false
+				},
+				data: [{        
+					type: "line",       
+					dataPoints: dataObj
+				}]
+			});
+			chart2.render();
+
+		}
+	</script>
+
+	<style>
+		* 
+		{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		/* body 
+		{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+		} */
+	</style>
+</head>
+<body>
+	<div id="chartContainer2" style="height: 400px; max-width: 75%; "></div>
+	
+	<script src="./canvasjs.min.js"></script>
+</body>
+</html>

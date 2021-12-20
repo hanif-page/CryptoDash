@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "@fnando/sparkline": "^0.3.10"
+  },
+  "name": "cryptodash",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "tailwindcss": "^3.0.7"
+  },
+  "scripts": {
+    "build": "npx tailwindcss -i ./styles/source.css -o ./styles/build.css",
+    "build:watch": "npx tailwindcss -i ./styles/source.css -o ./styles/build.css --watch",
+    "build:minify": "npx tailwindcss -i ./styles/source.css -o ./styles/build.css --minify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
