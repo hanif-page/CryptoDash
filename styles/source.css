@@ -39,4 +39,86 @@
         transform: scale(1)
     }
 
+    .searchBar input 
+    {
+        box-shadow: 0 2px 9px rgba(0,0,0,.16)
+    }
+
+    /* MAIN TABLE STYLE */
+    /* 
+        because it will be generated from Javascript, and it might be messy if I styled it from Javascript. So I just styled it from the here (source CSS) with @apply method, and use the tailwind utilities normally. 
+    */
+    .main-table, .main-table td 
+    {
+        @apply border border-solid border-primary-black
+    }
+
+    .main-table
+    {
+        @apply border-x-0 border-t-0
+    }
+
+    .main-table thead td 
+    {
+        @apply border-y-2 border-t-0
+    }
+
+    .main-table td
+    {
+        @apply py-2 border-x-0
+    } 
+
+    .main-table thead td, .main-table tbody
+    {
+        @apply text-xs xl:text-sm 2xl:text-lg
+    }
+
+    .main-table tbody tr 
+    {
+        @apply cursor-pointer transition duration-300 hover:bg-slate-100
+    } 
+
+    .main-table thead .rank, .main-table tbody .rank
+    {
+        @apply hidden sm:table-cell text-[10px] md:text-xs xl:text-sm 2xl:text-lg
+    }
+
+    .main-table thead .cryptocurrencyCell, 
+    .main-table tbody .cryptocurrencyCell
+    {
+        @apply pl-1 md:pl-0
+    }
+
+    /* here, I use border-t-0 because to prevent a double border bug */
+    .main-table tbody tr .cryptocurrencyCell
+    {
+        @apply flex items-center space-x-2 border-t-0
+    }
+
+    /* same here too (here, I use border-b-0 because to prevent a double border bug) */
+    .main-table tbody tr:last-child .cryptocurrencyCell
+    {
+        @apply border-b-0
+    }
+
+    .main-table tbody tr .cryptocurrencyCell img 
+    {
+        @apply w-[25px] object-cover lg:w-[30px]
+    }
+
+    .main-table tbody tr .cryptocurrencyCell h2 
+    {
+        @apply font-bold text-primary-black
+    }
+
+    .main-table tbody tr .cryptocurrencyCell h3
+    {
+        @apply text-primary-black
+    }
+
+    .main-table .change24hData
+    {
+        @apply font-semibold
+    }
+
 }
