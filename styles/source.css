@@ -75,7 +75,7 @@
 
     .main-table tbody tr 
     {
-        @apply cursor-pointer transition duration-300 hover:bg-slate-100
+        @apply cursor-pointer transition duration-300 hover:bg-amber-100
     } 
 
     .main-table thead .rank, .main-table tbody .rank
@@ -126,7 +126,6 @@
         @apply w-[50px] h-[50px] rounded-full bg-transparent border-4 border-slate-600 border-t-slate-200;
         animation: spinnerAnimation 1.25s infinite;
     }
-
     @keyframes spinnerAnimation
     {
         0% 
@@ -139,5 +138,10 @@
             -webkit-transform: rotate(0);
             transform: rotate(0);
         }
+    }
+
+    .btn-red 
+    {
+        @apply text-white bg-primary-red font-bold rounded-lg px-4 py-3 transition-colors hover:bg-red-400
     }
 }
