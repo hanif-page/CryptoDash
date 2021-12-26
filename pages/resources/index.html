@@ -10,7 +10,7 @@
     <script src="https://kit.fontawesome.com/33a03a8209.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../styles/build.css">
 </head>
-<body>
+<body class="bg-slate-50">
 
     <div class="header-content relative">
         <header class="p-container flex justify-between items-center bg-primary-cream h-[80px] w-full fixed z-10 top-0 right-0 rounded-b-lg">
@@ -40,10 +40,20 @@
         </nav>
     </div>
 
-    <main class="min-h-screen p-container pt-[96px] flex justify-center items-center">
-        <div class="text-center italic text-red-600">
-            This "Resources" page is still on building stage
+    <main class="min-h-screen p-container pt-[90px] pb-5 flex flex-col justify-center items-end space-y-6">
+        <h1 class="w-full text-center text-primary-blue text-lg md:text-xl font-bold capitalize">resources</h1>
+        <div class="space-y-3">   
+            <p class="indent-6 text-primary-black lg:text-lg">
+                Big thanks to <a href="https://www.coingecko.com/" target="_blank" class="font-bold underline transition-opacity hover:opacity-70">coingecko</a>, because all the data for this website is generated from the <a href="https://www.coingecko.com/en/api" target="_blank" class="font-bold underline transition-opacity hover:opacity-70">coingecko API</a>. And for you guys who want to use the API, there is a full <a href="https://www.coingecko.com/en/api/documentation" target="_blank" class="font-bold underline transition-opacity hover:opacity-70">documentation</a> from the coingecko itself, so make sure you all check it out and learn from it !
+            </p>
+            <p class="indent-6 text-primary-black lg:text-lg">
+                For the icons in this website, I generally use the already made icon from <a href="https://fontawesome.com/" target="_blank" class="font-bold underline transition-opacity hover:opacity-70">fontawesome</a>.
+            </p>
+            <p class="indent-6 text-primary-black lg:text-lg">
+                And for the price chart, I use <a href="https://canvasjs.com/" target="_blank" class="font-bold underline transition-opacity hover:opacity-70">canvasJS</a>. It's for data visualization base on javascript and generated on a HTML canvas.  
+            </p>
         </div>
+        <a href="../../index.html" class="btn-red">Return to home page</a>
     </main>
 
     <footer>
