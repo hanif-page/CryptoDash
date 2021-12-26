@@ -55,25 +55,38 @@ const getData = async (url) => {
                 .catch(error => error)
 }
 
-const stopLoadingAnimation = async () => {
+const startLoadingAnimation = () => {
     const body = document.querySelector("body")
     const spinnerContainer = document.querySelector('.spinnerContainer')
 
-    window.addEventListener('load', () => {
-        body.classList.remove("overflow-hidden")
+    body.classList.add("overflow-hidden")
+    spinnerContainer.classList.remove("opacity-0")
+}
 
-        spinnerContainer.classList.add("opacity-0")
-    })
+const stopLoadingAnimation = () => {
+    const body = document.querySelector("body")
+    const spinnerContainer = document.querySelector('.spinnerContainer')
+
+    body.classList.remove("overflow-hidden")
+    spinnerContainer.classList.add("opacity-0")
 }
 
 function getCoinID(element){
     alert(`Coin ID : ${element.dataset.coinid}`)
 }
 
+function detailCryptoInformation(coinID) {
+    startLoadingAnimation()
+
+    const mainContentContainer = document.querySelector("main .main-content-container")
+    mainContentContainer.innerHTML = ""
+}
+
 const generateTable = async () => {
     // generate table with dynamic data 
     let APIurl = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=false"
     const mainData = await getData(APIurl)
+    let countData = 0
 
     const mainTableBody = document.querySelector(".main-table tbody")
     mainTableBody.innerHTML = ""
@@ -97,10 +110,11 @@ const generateTable = async () => {
         </tr>
         `
         mainTableBody.innerHTML += tableRow
+        countData += 1  
     })
+    if(countData === mainData.length) stopLoadingAnimation() // stop the loading animation, if the table were completed
 }
-
-generateTable().finally(stopLoadingAnimation())
+generateTable()
 
 
 // Link for the specific datat for the coin 

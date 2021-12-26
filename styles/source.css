@@ -80,7 +80,7 @@
 
     .main-table thead .rank, .main-table tbody .rank
     {
-        @apply hidden sm:table-cell text-[10px] md:text-xs xl:text-sm 2xl:text-lg
+        @apply hidden sm:table-cell text-[10px] pl-1 md:text-xs xl:text-sm 2xl:text-lg
     }
 
     .main-table thead .cryptocurrencyCell, 
