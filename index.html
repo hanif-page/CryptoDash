@@ -10,7 +10,11 @@
     <script src="https://kit.fontawesome.com/33a03a8209.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./styles/build.css">
 </head>
-<body>
+<body class="overflow-hidden">
+
+    <div class="spinnerContainer transition-opacity duration-1000 delay-500 fixed z-50 inset-0 bg-slate-200 pointer-events-none flex items-center justify-center">
+        <div class="spinner"></div>
+    </div>
 
     <div class="header-content relative">
         <header class="p-container flex justify-between items-center bg-primary-cream h-[80px] w-full fixed z-30 top-0 right-0 rounded-b-lg">
@@ -47,7 +51,7 @@
         </nav>
     </div>
 
-    <main class="min-h-screen p-container pt-[108px] space-y-8 flex flex-col items-center md:items-end">
+    <main class="min-h-screen p-container py-[108px] space-y-8 flex flex-col items-center md:items-end">
         
         <div class="searchBar lg:hidden relative h-[42px] w-[280px] bg-transparent">
             <input placeholder="Find your favorite crypto ...." type="text" class="search-input outline-none text-sm text-primary-blue py-2 px-3 w-full h-full rounded-md">
@@ -57,7 +61,7 @@
         </div>
 
         <div class="relative w-full">
-            <h1 class="text-right text-primary-blue text-lg md:text-xl font-bold capitalize mb-5">cryptocurrency live statistics</h1>
+            <h1 class="text-right text-primary-blue text-lg md:text-xl font-bold capitalize mb-5">top 100 cryptocurrency live statistics</h1>
 
             <table class="main-table w-full border-collapse table-auto">
                 <thead>
@@ -68,7 +72,7 @@
                         <td>Cryptocurrency</td>
                         <td>Price</td>
                         <td>Market Cap</td>
-                        <td>24h</td>
+                        <td class="change24hData">24h</td>
                     </tr>
                 </thead>
                 <tbody class="text-secondary-black">
@@ -76,92 +80,12 @@
                         - each tr can be clicked, and change the UI to specific data about the coin 
                         - and, each tr will have a specific id base from the array data index (coin0, coin1, coin2)
                     -->
-                    <tr id="coin0"> 
-                        <td class="rank"> 
-                            1.
-                        </td>
-                        <td class="cryptocurrencyCell">
-                            <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579" alt="bitcoin image" class="">
-
-                            <div>
-                                <h2>Bitcoin</h2>
-                                <h3 class="uppercase">btc</h3>
-                            </div>
-                        </td>
-                        <td>$43,800</td>
-                        <td>$876.2 billion</td>
-                        <td class="text-profit-color change24hData">+2.4%</td>
-                    </tr>
-                    <tr id="coin1">
-                        <td class="rank">
-                            2.
-                        </td>
-                        <td class="cryptocurrencyCell">
-                            <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880" alt="ethereum image" class="">
-
-                            <div>
-                                <h2>Ethereum</h2>
-                                <h3 class="uppercase">eth</h3>
-                            </div>
-                        </td>
-                        <td>$43,200</td>
-                        <td>$965.3 billion</td>
-                        <td class="text-loss-color change24hData">-1.6%</td>
-                    </tr>
-                    <tr id="coin2">
-                        <td class="rank">
-                            3.
-                        </td>
-                        <td class="cryptocurrencyCell">
-                            <img src="https://assets.coingecko.com/coins/images/825/large/binance-coin-logo.png?1547034615" alt="binance coin image" class="">
-
-                            <div>
-                                <h2>Binance Coin</h2>
-                                <h3 class="uppercase">bnb</h3>
-                            </div>
-                        </td>
-                        <td>$43,200</td>
-                        <td>$965.3 billion</td>
-                        <td class="text-loss-color change24hData">-1.6%</td>
-                    </tr>
-                    <tr id="coin3">
-                        <td class="rank">
-                            4.
-                        </td>
-                        <td class="cryptocurrencyCell">
-                            <img src="https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707" alt="binance coin image" class="">
-
-                            <div>
-                                <h2>Tether</h2>
-                                <h3 class="uppercase">usdt</h3>
-                            </div>
-                        </td>
-                        <td>$43,200</td>
-                        <td>$965.3 billion</td>
-                        <td class="text-loss-color change24hData">-1.6%</td>
-                    </tr>
-                    <tr id="coin4">
-                        <td class="rank">
-                            5.
-                        </td>
-                        <td class="cryptocurrencyCell">
-                            <img src="https://assets.coingecko.com/coins/images/4128/large/solana.png?1640133422" alt="binance coin image" class="">
-
-                            <div>
-                                <h2>Solana</h2>
-                                <h3 class="uppercase">sol</h3>
-                            </div>
-                        </td>
-                        <td>$43,200</td>
-                        <td>$965.3 billion</td>
-                        <td class="text-loss-color change24hData">-1.6%</td>
-                    </tr>
                 </tbody>
-            </table>
-
+            </table>    
+            
             <div class="text-red-600 text-xs mt-5">
-                <span class="font-bold">note :</span> This page is still on building stage, <span class="font-bold italic">the statistics above is not a real live data</span>.  
-            </div>
+                <span class="font-bold">note :</span> This page is still on building stage.  
+            </div> 
         </div>
 
     </main>
