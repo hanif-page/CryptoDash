@@ -71,15 +71,121 @@ const stopLoadingAnimation = () => {
     spinnerContainer.classList.add("opacity-0")
 }
 
-function getCoinID(element){
-    alert(`Coin ID : ${element.dataset.coinid}`)
+const changePercentageColor = (number) => {
+    return (Math.round(number * 100)/100).toString()[0] !== "-" ? "!text-green-500" : "!text-loss-color" 
 }
 
-function detailCryptoInformation(coinID) {
+const roundNumber = (num, totalDecimalNumBehind) => {
+    // make the function work !
+}
+
+async function detailCryptoInformation(coinID) {
     startLoadingAnimation()
+
+    const APIurl = `https://api.coingecko.com/api/v3/coins/${coinID}?sparkline=true&localization=false&tickers=false&community_data=false&developer_data=false`
+    const mainData = await getData(APIurl)
 
     const mainContentContainer = document.querySelector("main .main-content-container")
     mainContentContainer.innerHTML = ""
+    mainContentContainer.className += " flex flex-col items-end"
+
+    const displayDetailUI = `
+        <header class="flex items-center w-full space-x-4">
+            <a href="${mainData.links.homepage[0]}" target="_blank">
+                <img class="w-16 object-cover md:w-20 lg:w-24" src="${mainData.image.large}" alt="${mainData.name} Image">
+            </a>
+            <div>
+                <h1 class="font-bold text-2xl text-primary-black 2xl:text-3xl">${mainData.name}</h1>
+                <h2 class="uppercase text-xl text-primary-black 2xl:text-2xl">${mainData.symbol}</h2>
+            </div>
+        </header>
+
+        <main class="specificInformationLayout w-full my-9">
+            <div class="mb-6 w-full">
+                <h3 class="md:text-right mb-2">${mainData.name} 24h Price Chart</h3>
+                <div id="chartContainer" class="w-full">
+                    <!-- the chart comes here !!! -->
+                </div>
+            </div>
+            <div class="mt-[450px] space-y-6 md:space-y-0 md:grid md:gap-y-6 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+                <div>
+                    <h3>Rank</h3>
+                    <p>${mainData.market_cap_rank}</p>
+                </div>
+                <div>
+                    <h3>Price to USD</h3>
+                    <p>$ ${mainData.market_data.current_price.usd % 1 !== 0 ? mainData.market_data.current_price.usd : changeTypeUnit(mainData.market_data.current_price.usd, true) /* if decimal, then just display without changing the type unit */ }</p>
+                </div>
+                <div>
+                    <h3>Market Cap</h3>
+                    <p>$ ${mainData.market_data.market_cap.usd % 1 !== 0 ? mainData.market_data.market_cap.usd : changeTypeUnit(mainData.market_data.market_cap.usd, true) /* if decimal, then just display without changing the type unit */ }</p>
+                </div>
+                <div>
+                    <h3>24h M.Cap Change Percentage</h3>
+                    <p class="${changePercentageColor(mainData.market_data.market_cap_change_percentage_24h)}">${(Math.round(mainData.market_data.market_cap_change_percentage_24h * 100)/100).toString()[0] !== "-" ? "+" : "" /* add + sign, if the change is not minus */  }${ Math.round(mainData.market_data.market_cap_change_percentage_24h * 100)/100 /* round 2 decimal behind */  }%</p>
+                </div>
+                <div>
+                    <h3>24h Change Percentage</h3>
+                    <p class="${changePercentageColor(mainData.market_data.price_change_percentage_24h)}">${(Math.round(mainData.market_data.price_change_percentage_24h * 100)/100).toString()[0] !== "-" ? "+" : "" /* add + sign, if the change is not minus */  }${Math.round(mainData.market_data.price_change_percentage_24h * 100)/100 /* round 2 decimal behind */ }%</p>
+                </div>
+                <div>
+                    <h3>7d Change Percentage</h3>
+                    <p class="${changePercentageColor(mainData.market_data.price_change_percentage_7d)}">${(Math.round(mainData.market_data.price_change_percentage_7d * 100)/100).toString()[0] !== "-" ? "+" : "" /* add + sign, if the change is not minus */  }${Math.round(mainData.market_data.price_change_percentage_7d * 100)/100 /* round 2 decimal behind */ }%</p>
+                </div>
+                <div>
+                    <h3>14d Change Percentage</h3>
+                    <p class="${changePercentageColor(mainData.market_data.price_change_percentage_14d)}">${(Math.round(mainData.market_data.price_change_percentage_14d * 100)/100).toString()[0] !== "-" ? "+" : "" /* add + sign, if the change is not minus */  }${Math.round(mainData.market_data.price_change_percentage_14d * 100)/100 /* round 2 decimal behind */ }%</p>
+                </div>
+                <div>
+                    <h3>30d Change Percentage</h3>
+                    <p class="${changePercentageColor(mainData.market_data.price_change_percentage_30d)}">${(Math.round(mainData.market_data.price_change_percentage_30d * 100)/100).toString()[0] !== "-" ? "+" : ""}${Math.round(mainData.market_data.price_change_percentage_30d * 100)/100}%</p>
+                </div>
+            </div>
+        </main>
+
+        <button onclick="location.reload()" class="btn-red text-base">Return</button>
+    `
+
+    // important things !
+    mainContentContainer.innerHTML = displayDetailUI
+    generateChart(APIurl)
+
+    stopLoadingAnimation()
+}
+
+const generateChart = async (url) => {
+
+    // generate table with dynamic data 
+    let APIurl = url
+    const mainData = await getData(APIurl)
+    const sparklineExample = mainData.market_data.sparkline_7d.price
+
+    // make a format that can be accepted by the calculation
+    let dataObj = []
+    sparklineExample.forEach(number => {
+        let temp = {}
+        temp.y = number 
+
+        dataObj.push(temp)
+    })
+
+    // generate canvas
+    const chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        theme: "light2",
+        title: {
+            text: false
+        },
+        axisY: {
+            includeZero: false
+        },
+        data: [{
+            type: "line",
+            dataPoints: dataObj
+        }]
+
+    });
+    chart.render()
 }
 
 const generateTable = async () => {
@@ -92,7 +198,7 @@ const generateTable = async () => {
     mainTableBody.innerHTML = ""
     mainData.forEach(data => {
         let tableRow = `
-        <tr data-coinid="${data.id}" onclick="getCoinID(this)"> 
+        <tr data-coinid="${data.id}" onclick="detailCryptoInformation(this.dataset.coinid)"> 
             <td class="rank"> 
                 ${data.market_cap_rank}.
             </td>
@@ -115,48 +221,3 @@ const generateTable = async () => {
     if(countData === mainData.length) stopLoadingAnimation() // stop the loading animation, if the table were completed
 }
 generateTable()
-
-
-// Link for the specific datat for the coin 
-// https://api.coingecko.com/api/v3/coins/{id}?sparkline=true&localization=false&tickers=false&community_data=false&developer_data=false
-
-/*
-
-// generate table with dynamic data 
-let APIurl = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=true"
-const mainData = await getData(APIurl)
-// mainData.forEach((item, index) => {
-//     if(item.price_change_percentage_24h < 0) console.log(`${index+1}.) ${item.name} 24h Change %c${item.price_change_percentage_24h}%`, "color: #E75757")
-//     else if(item.price_change_percentage_24h > 0) console.log(`${index+1}.) ${item.name} 24h Change %c+${item.price_change_percentage_24h}%`, "color: #79EA86")
-// })
-
-const sparklineExample = mainData[0].sparkline_in_7d.price
-
-// make a format that can be accepted by the calculation
-let dataObj = []
-sparklineExample.forEach(number => {
-    let temp = {}
-    temp.y = number 
-
-    dataObj.push(temp)
-})
-
-// generate canvas
-const chart = new CanvasJS.Chart("chartDemo", {
-    animationEnabled: true,
-    theme: "light2",
-    title: {
-        text: false
-    },
-    axisY: {
-        includeZero: false
-    },
-    data: [{
-        type: "line",
-        dataPoints: dataObj
-    }]
-
-});
-chart.render()
-
-*/

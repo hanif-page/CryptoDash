@@ -140,6 +140,16 @@
         }
     }
 
+    .specificInformationLayout h3 
+    {
+        @apply text-primary-blue text-lg font-bold
+    }
+
+    .specificInformationLayout p
+    {
+        @apply text-secondary-blue text-lg
+    }
+
     .btn-red 
     {
         @apply text-white bg-primary-red font-bold rounded-lg px-4 py-3 transition-colors hover:bg-red-400

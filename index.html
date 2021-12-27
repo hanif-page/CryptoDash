@@ -29,8 +29,8 @@
                 </ul>
             </nav>
     
-            <div class="hidden lg:block relative">
-                <input placeholder="Find your favorite crypto ...." type="text" class="search-input outline-none text-sm text-primary-blue py-2 px-3 h-[42px] w-[280px] rounded-md">
+            <div class="searchBar hidden lg:block relative bg-transparent">
+                <input placeholder="Find your favorite crypto ...." type="text" class="search-input outline-none text-sm text-primary-blue py-2 px-3 h-[49px] w-[280px] rounded-md">
                 <span class="search-enter cursor-pointer absolute bg-white px-2 right-0 top-1/2 transform -translate-y-1/2">
                     <i class="fas fa-search text-primary-blue text-xl"></i>
                 </span>
@@ -53,7 +53,7 @@
 
     <main class="min-h-screen p-container py-[108px] space-y-8 flex flex-col items-center md:items-end">
         
-        <div class="searchBar lg:hidden relative h-[42px] w-[280px] bg-transparent">
+        <div class="searchBar lg:hidden relative h-[49px] w-[280px] bg-transparent">
             <input placeholder="Find your favorite crypto ...." type="text" class="search-input outline-none text-sm text-primary-blue py-2 px-3 w-full h-full rounded-md">
             <span class="search-enter cursor-pointer absolute bg-white px-2 right-0.5 top-1/2 transform -translate-y-1/2">
                 <i class="fas fa-search text-primary-blue text-xl"></i>
@@ -61,6 +61,7 @@
         </div>
 
         <div class="relative w-full main-content-container">
+            
             <h1 class="text-right text-primary-blue text-lg md:text-xl font-bold capitalize mb-5">top 100 cryptocurrency live statistics</h1>
 
             <table class="main-table w-full border-collapse table-auto">
@@ -75,17 +76,15 @@
                         <td class="change24hData">24h</td>
                     </tr>
                 </thead>
-                <tbody class="text-secondary-black">
-                    <!-- 
-                        - each tr can be clicked, and change the UI to specific data about the coin 
-                        - and, each tr will have a specific id base from the array data index (coin0, coin1, coin2)
-                    -->
-                </tbody>
+                <tbody class="text-secondary-black"></tbody>
             </table>    
             
             <div class="text-red-600 text-xs mt-5">
-                <span class="font-bold">note :</span> This page is still on building stage.  
-            </div> 
+                <span class="font-bold">note :</span> 
+                <br>- This page is still on building stage.
+                <br>- You can click the cryptocurrency inside the table, it will show you more detail statistics about the cryptocurrency that you have clicked.   
+            </div>  
+           
         </div>
 
     </main>
