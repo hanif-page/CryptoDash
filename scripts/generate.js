@@ -102,7 +102,7 @@ async function detailCryptoInformation(coinID) {
 
         <main class="specificInformationLayout w-full my-9">
             <div class="mb-6 w-full">
-                <h3 class="md:text-right mb-2">${mainData.name} 24h Price Chart</h3>
+                <h3 class="md:text-right mb-2">${mainData.name} 7d Price Chart</h3>
                 <div id="chartContainer" class="w-full">
                     <!-- the chart comes here !!! -->
                 </div>
