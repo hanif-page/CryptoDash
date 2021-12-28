@@ -71,12 +71,22 @@ const stopLoadingAnimation = () => {
     spinnerContainer.classList.add("opacity-0")
 }
 
+const isDecimal = (number) => {
+    return number % 1 !== 0 
+}
+
 const changePercentageColor = (number) => {
-    return (Math.round(number * 100)/100).toString()[0] !== "-" ? "!text-green-500" : "!text-loss-color" 
+    return (roundNumber(number, 2)).toString()[0] !== "-" ? "!text-green-500" : "!text-loss-color" 
+}
+
+const changePercentageSign = (number) => {
+    return (roundNumber(number, 2)).toString()[0] !== "-" ? "+" : "" /* add + sign, if the change is not minus */
 }
 
 const roundNumber = (num, totalDecimalNumBehind) => {
     // make the function work !
+    if (totalDecimalNumBehind <= 1) return Math.round(num * 10)/10
+    return Math.round(num * 10**totalDecimalNumBehind)/10**totalDecimalNumBehind
 }
 
 async function detailCryptoInformation(coinID) {
@@ -114,31 +124,31 @@ async function detailCryptoInformation(coinID) {
                 </div>
                 <div>
                     <h3>Price to USD</h3>
-                    <p>$ ${mainData.market_data.current_price.usd % 1 !== 0 ? mainData.market_data.current_price.usd : changeTypeUnit(mainData.market_data.current_price.usd, true) /* if decimal, then just display without changing the type unit */ }</p>
+                    <p>$ ${ isDecimal(mainData.market_data.current_price.usd) ? mainData.market_data.current_price.usd : changeTypeUnit(mainData.market_data.current_price.usd, true) /* if decimal, then just display without changing the type unit */ }</p>
                 </div>
                 <div>
                     <h3>Market Cap</h3>
-                    <p>$ ${mainData.market_data.market_cap.usd % 1 !== 0 ? mainData.market_data.market_cap.usd : changeTypeUnit(mainData.market_data.market_cap.usd, true) /* if decimal, then just display without changing the type unit */ }</p>
+                    <p>$ ${ isDecimal(mainData.market_data.market_cap.usd) ? mainData.market_data.market_cap.usd : changeTypeUnit(mainData.market_data.market_cap.usd, true) /* if decimal, then just display without changing the type unit */ }</p>
                 </div>
                 <div>
                     <h3>24h M.Cap Change Percentage</h3>
-                    <p class="${changePercentageColor(mainData.market_data.market_cap_change_percentage_24h)}">${(Math.round(mainData.market_data.market_cap_change_percentage_24h * 100)/100).toString()[0] !== "-" ? "+" : "" /* add + sign, if the change is not minus */  }${ Math.round(mainData.market_data.market_cap_change_percentage_24h * 100)/100 /* round 2 decimal behind */  }%</p>
+                    <p class="${changePercentageColor(mainData.market_data.market_cap_change_percentage_24h)}">${ changePercentageSign(mainData.market_data.market_cap_change_percentage_24h) }${ roundNumber(mainData.market_data.market_cap_change_percentage_24h, 2) /* round 2 decimal behind */  }%</p>
                 </div>
                 <div>
                     <h3>24h Change Percentage</h3>
-                    <p class="${changePercentageColor(mainData.market_data.price_change_percentage_24h)}">${(Math.round(mainData.market_data.price_change_percentage_24h * 100)/100).toString()[0] !== "-" ? "+" : "" /* add + sign, if the change is not minus */  }${Math.round(mainData.market_data.price_change_percentage_24h * 100)/100 /* round 2 decimal behind */ }%</p>
+                    <p class="${changePercentageColor(mainData.market_data.price_change_percentage_24h)}">${ changePercentageSign(mainData.market_data.price_change_percentage_24h) }${roundNumber(mainData.market_data.price_change_percentage_24h, 2) /* round 2 decimal behind */ }%</p>
                 </div>
                 <div>
                     <h3>7d Change Percentage</h3>
-                    <p class="${changePercentageColor(mainData.market_data.price_change_percentage_7d)}">${(Math.round(mainData.market_data.price_change_percentage_7d * 100)/100).toString()[0] !== "-" ? "+" : "" /* add + sign, if the change is not minus */  }${Math.round(mainData.market_data.price_change_percentage_7d * 100)/100 /* round 2 decimal behind */ }%</p>
+                    <p class="${changePercentageColor(mainData.market_data.price_change_percentage_7d)}">${ changePercentageSign(mainData.market_data.price_change_percentage_7d) }${roundNumber(mainData.market_data.price_change_percentage_7d, 2) /* round 2 decimal behind */ }%</p>
                 </div>
                 <div>
                     <h3>14d Change Percentage</h3>
-                    <p class="${changePercentageColor(mainData.market_data.price_change_percentage_14d)}">${(Math.round(mainData.market_data.price_change_percentage_14d * 100)/100).toString()[0] !== "-" ? "+" : "" /* add + sign, if the change is not minus */  }${Math.round(mainData.market_data.price_change_percentage_14d * 100)/100 /* round 2 decimal behind */ }%</p>
+                    <p class="${changePercentageColor(mainData.market_data.price_change_percentage_14d)}">${ changePercentageSign(mainData.market_data.price_change_percentage_14d) }${roundNumber(mainData.market_data.price_change_percentage_14d, 2) /* round 2 decimal behind */ }%</p>
                 </div>
                 <div>
                     <h3>30d Change Percentage</h3>
-                    <p class="${changePercentageColor(mainData.market_data.price_change_percentage_30d)}">${(Math.round(mainData.market_data.price_change_percentage_30d * 100)/100).toString()[0] !== "-" ? "+" : ""}${Math.round(mainData.market_data.price_change_percentage_30d * 100)/100}%</p>
+                    <p class="${changePercentageColor(mainData.market_data.price_change_percentage_30d)}">${ changePercentageSign(mainData.market_data.price_change_percentage_30d) }${roundNumber(mainData.market_data.price_change_percentage_30d, 2)}%</p>
                 </div>
             </div>
         </main>
@@ -147,6 +157,7 @@ async function detailCryptoInformation(coinID) {
     `
 
     // important things !
+    scroll(0,0) // set the screen to the top
     mainContentContainer.innerHTML = displayDetailUI
     generateChart(APIurl)
 
@@ -210,14 +221,15 @@ const generateTable = async () => {
                     <h3 class="uppercase">${data.symbol}</h3>
                 </div>
             </td>
-            <td>$${data.current_price % 1 !== 0 ? data.current_price : changeTypeUnit(data.current_price, true) /* if decimal, then just display without changing the type unit */ }</td>
+            <td>$${ isDecimal(data.current_price) ? data.current_price : changeTypeUnit(data.current_price, true) /* if decimal, then just display without changing the type unit */ }</td>
             <td>$${changeTypeUnit(Math.round(data.market_cap), false)}</td>
-            <td class="${(Math.round(data.price_change_percentage_24h*10)/10).toString()[0] === "-" ? "text-loss-color" : "text-profit-color"} change24hData">${(Math.round(data.price_change_percentage_24h*10)/10).toString()[0] !== "-" ? "+" : ""}${Math.round(data.price_change_percentage_24h * 10)/10 /* round 1 decimal behind */ }%</td>
+            <td class="${ changePercentageColor(data.price_change_percentage_24h) } change24hData">${ changePercentageSign(data.price_change_percentage_24h) }${ roundNumber(data.price_change_percentage_24h, 1) /* round 1 decimal behind */ }%</td>
         </tr>
         `
         mainTableBody.innerHTML += tableRow
         countData += 1  
     })
+    scroll(0,0) // set the screen to the top
     if(countData === mainData.length) stopLoadingAnimation() // stop the loading animation, if the table were completed
 }
 generateTable()

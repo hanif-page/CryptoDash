@@ -1131,9 +1131,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(231 87 87 / var(--tw-text-opacity));
 }
 
-.text-profit-color {
+.text-green-500 {
   --tw-text-opacity: 1;
-  color: rgb(121 234 134 / var(--tw-text-opacity));
+  color: rgb(34 197 94 / var(--tw-text-opacity));
 }
 
 .underline {
