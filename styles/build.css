@@ -476,7 +476,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   transform: scale(1)
 }
 
-.searchBar input 
+.searchBar input, .recommendation-tab 
     {
   box-shadow: 0 2px 9px rgba(0,0,0,.16)
 }
@@ -787,6 +787,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 2.25rem;
 }
 
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
 .mb-5 {
   margin-bottom: 1.25rem;
 }
@@ -805,6 +809,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .mt-\[450px\] {
   margin-top: 450px;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
 }
 
 .flex {
@@ -968,6 +976,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-bottom-left-radius: 0.5rem;
 }
 
+.rounded-b-md {
+  border-bottom-right-radius: 0.375rem;
+  border-bottom-left-radius: 0.375rem;
+}
+
 .bg-slate-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(248 250 252 / var(--tw-bg-opacity));
@@ -1020,6 +1033,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .py-\[108px\] {
   padding-top: 108px;
   padding-bottom: 108px;
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 
 .pb-4 {
@@ -1126,16 +1144,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(231 87 87 / var(--tw-text-opacity)) !important;
 }
 
-.text-loss-color {
-  --tw-text-opacity: 1;
-  color: rgb(231 87 87 / var(--tw-text-opacity));
-}
-
-.text-green-500 {
-  --tw-text-opacity: 1;
-  color: rgb(34 197 94 / var(--tw-text-opacity));
-}
-
 .underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -1179,6 +1187,26 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap');
+
+.hover\:bg-neutral-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 229 229 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-neutral-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 245 245 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-secondary-blue:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(81 119 158 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-slate-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
+}
 
 .hover\:opacity-70:hover {
   opacity: 0.7;

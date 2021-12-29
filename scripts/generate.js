@@ -233,3 +233,32 @@ const generateTable = async () => {
     if(countData === mainData.length) stopLoadingAnimation() // stop the loading animation, if the table were completed
 }
 generateTable()
+
+window.addEventListener('load', async () => {
+    const dataArr = []
+    const link = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=false"
+    const mainData = await getData(link)
+    mainData.forEach(data => {
+        let tempObj = {}
+        tempObj.image = data.image
+        tempObj.name = data.name 
+        tempObj.id = data.id
+
+        dataArr.push(tempObj)
+    })
+
+    let searchBar = document.querySelectorAll(".searchBar input")
+    searchBar.forEach(inp => {
+        inp.addEventListener("input", function(){
+            let currentValue = inp.value.toLowerCase();
+
+            dataArr.forEach(cryptoData => {
+                let cryptoName = cryptoData.name.toLowerCase()
+
+                // implement the search logic !
+                // (find specific character with indexOf)
+            })
+        })
+    })
+
+} )
