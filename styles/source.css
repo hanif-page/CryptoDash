@@ -65,7 +65,7 @@
 
     .main-table tbody tr 
     {
-        @apply cursor-pointer transition duration-300 hover:bg-amber-100 border-t border-b border-primary-black
+        @apply cursor-pointer transition duration-300 hover:bg-amber-100 border-b border-primary-black
     } 
 
     .main-table thead .rank, .main-table tbody .rank
