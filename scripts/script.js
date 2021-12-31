@@ -17,15 +17,16 @@ hamburgerNav.addEventListener('click', () => {
     mobileNav.classList.toggle('translate-y-[75px]')
 })
 
-// const searchBarInput = document.querySelectorAll(".searchBar > input")
-// searchBarInput.forEach(input => {
-//     input.addEventListener('keyup', function(e){
-//         if(e.keyCode === 13) input.nextElementSibling.click()
-//     })
-// })
-// const searchBarEnter = document.querySelectorAll(".searchBar > span")
-// searchBarEnter.forEach(enter => {
-//     enter.addEventListener('click', () => {
-//         alert("Sorry, the search bar is not available yet :)")
-//     })
-// })
+// Quick Shortcut to the search bar
+window.addEventListener('keydown', (e) => {
+    if(e.ctrlKey && e.key === "k")
+    {
+        e.preventDefault();
+        // alert("ctrl + k !!!")
+        let searchInput = document.querySelectorAll(".searchBar input")
+        searchInput.forEach(inp => {
+            // find the one who didn't have the hidden class, then make it like clicked
+            if(!inp.classList.contains("hidden")) inp.focus();
+        })
+    }
+})

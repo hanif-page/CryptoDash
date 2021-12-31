@@ -48,24 +48,14 @@
     /* 
         because it will be generated from Javascript, and it might be messy if I styled it from Javascript. So I just styled it from the here (source CSS) with @apply method, and use the tailwind utilities normally. 
     */
-    .main-table, .main-table td 
+    .main-table thead 
     {
-        @apply border border-solid border-primary-black
-    }
-
-    .main-table
-    {
-        @apply border-x-0 border-t-0
-    }
-
-    .main-table thead td 
-    {
-        @apply border-y-2 border-t-0
+        @apply border-b-2 border-primary-black
     }
 
     .main-table td
     {
-        @apply py-2 border-x-0
+        @apply py-2 border-0
     } 
 
     .main-table thead td, .main-table tbody
@@ -75,7 +65,7 @@
 
     .main-table tbody tr 
     {
-        @apply cursor-pointer transition duration-300 hover:bg-amber-100
+        @apply cursor-pointer transition duration-300 hover:bg-amber-100 border-t border-b border-primary-black
     } 
 
     .main-table thead .rank, .main-table tbody .rank
@@ -92,13 +82,7 @@
     /* here, I use border-t-0 because to prevent a double border bug */
     .main-table tbody tr .cryptocurrencyCell
     {
-        @apply flex items-center space-x-2 border-t-0
-    }
-
-    /* same here too (here, I use border-b-0 because to prevent a double border bug) */
-    .main-table tbody tr:last-child .cryptocurrencyCell
-    {
-        @apply border-b-0
+        @apply flex items-center space-x-2 
     }
 
     .main-table tbody tr .cryptocurrencyCell img 

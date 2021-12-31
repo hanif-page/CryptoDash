@@ -434,6 +434,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
+  --tw-blur: var(--tw-empty,/*!*/ /*!*/);
+  --tw-brightness: var(--tw-empty,/*!*/ /*!*/);
+  --tw-contrast: var(--tw-empty,/*!*/ /*!*/);
+  --tw-grayscale: var(--tw-empty,/*!*/ /*!*/);
+  --tw-hue-rotate: var(--tw-empty,/*!*/ /*!*/);
+  --tw-invert: var(--tw-empty,/*!*/ /*!*/);
+  --tw-saturate: var(--tw-empty,/*!*/ /*!*/);
+  --tw-sepia: var(--tw-empty,/*!*/ /*!*/);
+  --tw-drop-shadow: var(--tw-empty,/*!*/ /*!*/);
+  --tw-filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 * 
@@ -487,27 +497,14 @@ Ensure the default browser behavior of the `hidden` attribute.
         because it will be generated from Javascript, and it might be messy if I styled it from Javascript. So I just styled it from the here (source CSS) with @apply method, and use the tailwind utilities normally. 
     */
 
-.main-table, .main-table td {
-  border-width: 1px;
-  border-style: solid;
+.main-table thead {
+  border-bottom-width: 2px;
   --tw-border-opacity: 1;
   border-color: rgb(58 80 84 / var(--tw-border-opacity));
 }
 
-.main-table {
-  border-left-width: 0px;
-  border-right-width: 0px;
-  border-top-width: 0px;
-}
-
-.main-table thead td {
-  border-bottom-width: 2px;
-  border-top-width: 0px;
-}
-
 .main-table td {
-  border-left-width: 0px;
-  border-right-width: 0px;
+  border-width: 0px;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
@@ -533,6 +530,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .main-table tbody tr {
   cursor: pointer;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(58 80 84 / var(--tw-border-opacity));
   transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
@@ -599,16 +600,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.main-table tbody tr .cryptocurrencyCell {
-  border-top-width: 0px;
-}
-
-/* same here too (here, I use border-b-0 because to prevent a double border bug) */
-
-.main-table tbody tr:last-child .cryptocurrencyCell {
-  border-bottom-width: 0px;
 }
 
 .main-table tbody tr .cryptocurrencyCell img {
@@ -720,28 +711,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .btn-red:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(248 113 113 / var(--tw-bg-opacity));
-}
-
-.recommendation-tab ul {
-  overflow: scroll;
-}
-
-.recommendation-tab ul li {
-  cursor: pointer;
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-
-.recommendation-tab ul li:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
-}
-
-.recommendation-tab ul li:last-child {
-  border-bottom-right-radius: 0.375rem;
-  border-bottom-left-radius: 0.375rem;
 }
 
 .pointer-events-none {
@@ -1169,6 +1138,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .outline-none {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+.filter {
+  filter: var(--tw-filter);
 }
 
 .transition-opacity {
