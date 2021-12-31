@@ -156,6 +156,14 @@ async function detailCryptoInformation(coinID) {
         <button onclick="location.reload()" class="btn-red text-base">Return</button>
     `
 
+    // remove the search bar, when open the specific information display
+    let searchBar = document.querySelectorAll(".searchBar")
+    searchBar.forEach(search => {
+        search.querySelector("input").value = ""
+        search.parentElement.remove()
+    })
+    document.querySelector("body").style.backgroundColor = "white"
+
     // important things !
     scroll(0,0) // set the screen to the top
     mainContentContainer.innerHTML = displayDetailUI
@@ -234,31 +242,74 @@ const generateTable = async () => {
 }
 generateTable()
 
-window.addEventListener('load', async () => {
-    const dataArr = []
-    const link = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=false"
-    const mainData = await getData(link)
-    mainData.forEach(data => {
-        let tempObj = {}
-        tempObj.image = data.image
-        tempObj.name = data.name 
-        tempObj.id = data.id
+// PLAN 1
+    // window.addEventListener('load', async () => {
+    //     const recommendationData = []
+    //     const link = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=false"
+    //     const mainData = await getData(link)
+    //     mainData.forEach(data => {
+    //         let tempObj = {}
+    //         tempObj.image = data.image
+    //         tempObj.name = data.name 
+    //         tempObj.id = data.id
 
-        dataArr.push(tempObj)
-    })
+    //         recommendationData.push(tempObj)
+    //     })
 
+    //     let searchBar = document.querySelectorAll(".searchBar input")
+    //     searchBar.forEach(inp => {
+    //         inp.addEventListener("input", function(){
+    //             let recommendationTab = inp.parentElement.nextElementSibling;
+    //             let currentValue = inp.value.toLowerCase();
+
+    //             if(currentValue === "") 
+    //             {
+    //             if(!recommendationTab.classList.contains("hidden")) recommendationTab.classList.add("hidden")
+    //             }
+    //             else 
+    //             {
+    //                 recommendationTab.classList.remove("hidden")
+    //                 recommendationData.forEach(cryptoData => {
+    //                     let cryptoName = cryptoData.name.toLowerCase()
+    //                     let ULcontainer = recommendationTab.querySelector("ul")
+                        
+    //                     if(cryptoName.indexOf(currentValue) !== -1)
+    //                     {
+    //                         /*
+    //                             - if the cryptoName is already in the ul list, then do nothing
+    //                             - else if the cryptoName is not in the list, then add new li element with cryptoName inside to the ul element
+    //                         */
+    //                     }
+    //                     else // this condition, where the currentValue didn't match the cryptoName
+    //                     {
+    //                         /*
+    //                             - if the cryptoName is not in the list, then do nothing
+    //                             - else if the cryptoName already in the ul list, then find the li element with the cryptoName text inside, and remove it !
+    //                         */
+    //                     }
+    //                     // implement the search logic !
+    //                     // (find specific character with indexOf)
+    //                 })
+    //             }
+    //         })
+    //     })
+    // })
+
+// PLAN 2 (currently used)
+window.addEventListener('load', () => {
     let searchBar = document.querySelectorAll(".searchBar input")
     searchBar.forEach(inp => {
         inp.addEventListener("input", function(){
             let currentValue = inp.value.toLowerCase();
 
-            dataArr.forEach(cryptoData => {
-                let cryptoName = cryptoData.name.toLowerCase()
+            let mainTbodyRow = document.querySelectorAll(".main-table tbody tr")
+            mainTbodyRow.forEach(tr => {
+                let cryptoName = tr.querySelector(".cryptocurrencyCell h2").innerText.toLowerCase()
 
-                // implement the search logic !
-                // (find specific character with indexOf)
+                // filter logic
+                if(cryptoName.indexOf(currentValue) === -1) tr.classList.add("hidden")
+                else tr.classList.remove("hidden")
             })
         })
     })
-
-} )
+})
