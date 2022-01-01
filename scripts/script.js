@@ -27,6 +27,7 @@ window.addEventListener('keydown', (e) => {
         searchInput.forEach(inp => {
             // find the one who didn't have the hidden class, then make it like clicked
             if(!inp.classList.contains("hidden")) inp.focus();
+            if(window.innerWidth < 1024) scroll(0,0);
         })
     }
 })
