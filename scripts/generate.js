@@ -250,9 +250,13 @@ searchBar.forEach(inp => {
         let mainTbodyRow = document.querySelectorAll(".main-table tbody tr")
         mainTbodyRow.forEach(tr => {
             let cryptoName = tr.querySelector(".cryptocurrencyCell h2").innerText.toLowerCase()
+            let cryptoSymbol = tr.querySelector(".cryptocurrencyCell h3").innerText.toLowerCase()
 
             // filter logic
-            if(cryptoName.indexOf(currentValue) === -1) tr.classList.add("hidden")
+            if(cryptoName.indexOf(currentValue) === -1) 
+            {
+                if(cryptoSymbol.indexOf(currentValue) === -1) tr.classList.add("hidden")
+            }
             else tr.classList.remove("hidden")
         })
     })
