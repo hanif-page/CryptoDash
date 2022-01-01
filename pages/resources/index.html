@@ -10,7 +10,12 @@
     <script src="https://kit.fontawesome.com/33a03a8209.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../styles/build.css">
 </head>
-<body class="bg-slate-50">
+<body class="overflow-hidden bg-slate-50">
+
+    <div class="spinnerContainer transition-opacity duration-1000 fixed z-[99999] inset-0 bg-slate-200 pointer-events-none flex items-center justify-center">
+        <div class="spinner"></div>
+    </div>
+
 
     <div class="header-content relative">
         <header class="p-container flex justify-between items-center bg-primary-cream h-[80px] w-full fixed z-10 top-0 right-0 rounded-b-lg">
@@ -63,5 +68,8 @@
     </footer>
 
     <script src="../../scripts/script.js"></script>
+    <script>
+        window.addEventListener("load", () => stopLoadingAnimation())
+    </script>
 </body>
 </html>
