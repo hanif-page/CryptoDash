@@ -55,22 +55,6 @@ const getData = async (url) => {
                 .catch(error => error)
 }
 
-const startLoadingAnimation = () => {
-    const body = document.querySelector("body")
-    const spinnerContainer = document.querySelector('.spinnerContainer')
-
-    body.classList.add("overflow-hidden")
-    spinnerContainer.classList.remove("opacity-0")
-}
-
-const stopLoadingAnimation = () => {
-    const body = document.querySelector("body")
-    const spinnerContainer = document.querySelector('.spinnerContainer')
-
-    body.classList.remove("overflow-hidden")
-    spinnerContainer.classList.add("opacity-0")
-}
-
 const isDecimal = (number) => {
     return number % 1 !== 0 
 }
