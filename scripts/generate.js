@@ -5,38 +5,48 @@ const changeTypeUnit = (number, isCompleteNumber = true) => {
     // example : number = 890890987, isCompleteNumber = false
     // it will return 890.9 million
 
-    if (number.toString().length <= 3) return number
+    if (number < 1000) return number
     else if (isCompleteNumber)
     {
-        let numString = number.toString()
-        let maxIndex = numString.length - 1
-        let countTo3 = 1
-        for(let i = maxIndex; i >= 0; i--)
+        if(isDecimal(number)) // example => 3127.56
         {
-            maxIndex = numString.length - 1
-            if (countTo3 === 3) 
-            {
-                if(numString.slice(0, 1) === "") return numString 
-                else 
-                {
-                    /*
-                        kalo misal dia pas berhenti di angka ratusan, maka ada bug jadinya, yaitu didepan angka jadi ada koma 
-                        contoh : 
-                        => 123456 -> ,123,456
-                        => 123456789 -> ,123,456,789
-                        solve nya bisa dengan buat if statement, jika index 0 nya kosong, maka tidak usah tambahin koma
-                    */
-                    const temp = numString
-                    numString = numString.slice(0, i) + "," + numString.slice(i, maxIndex + 1)
-                    countTo3 = 1
-
-                    // prevent the "," bug on the first index
-                    if(numString[0] === ",") return temp
-                }
-            }
-            else countTo3 += 1
+            let numString = number.toString()
+            let dotPosition = (numString.match(/./g) || []).indexOf(".")
+            let intNumber = numString.slice(0, dotPosition)
+            return `${changeTypeUnit(intNumber, true)}${numString.slice(dotPosition, numString.length)}`
         }
-        return numString
+        else // example => 3127
+        {
+            let numString = number.toString()
+            let maxIndex = numString.length - 1
+            let countTo3 = 1
+            for(let i = maxIndex; i >= 0; i--)
+            {
+                maxIndex = numString.length - 1
+                if (countTo3 === 3) 
+                {
+                    if(numString.slice(0, 1) === "") return numString 
+                    else 
+                    {
+                        /*
+                            kalo misal dia pas berhenti di angka ratusan, maka ada bug jadinya, yaitu didepan angka jadi ada koma 
+                            contoh : 
+                            => 123456 -> ,123,456
+                            => 123456789 -> ,123,456,789
+                            solve nya bisa dengan buat if statement, jika index 0 nya kosong, maka tidak usah tambahin koma
+                        */
+                        const temp = numString
+                        numString = numString.slice(0, i) + "," + numString.slice(i, maxIndex + 1)
+                        countTo3 = 1
+    
+                        // prevent the "," bug on the first index
+                        if(numString[0] === ",") return temp
+                    }
+                }
+                else countTo3 += 1
+            }
+            return numString
+        }
     } 
     else 
     {
@@ -96,7 +106,7 @@ async function detailCryptoInformation(coinID) {
 
         <main class="specificInformationLayout w-full my-9">
             <div class="mb-6 w-full">
-                <h3 class="md:text-right mb-2">${mainData.name} 7d Price Chart</h3>
+                <h3 class="md:text-right mb-2">${mainData.name} Last 7 Days Price Chart</h3>
                 <div id="chartContainer" class="w-full">
                     <!-- the chart comes here !!! -->
                 </div>
@@ -108,14 +118,14 @@ async function detailCryptoInformation(coinID) {
                 </div>
                 <div>
                     <h3>Price to USD</h3>
-                    <p>$ ${ isDecimal(mainData.market_data.current_price.usd) ? mainData.market_data.current_price.usd : changeTypeUnit(mainData.market_data.current_price.usd, true) /* if decimal, then just display without changing the type unit */ }</p>
+                    <p>$ ${ changeTypeUnit(mainData.market_data.current_price.usd, true) }</p>
                 </div>
                 <div>
                     <h3>Market Cap</h3>
                     <p>$ ${ isDecimal(mainData.market_data.market_cap.usd) ? mainData.market_data.market_cap.usd : changeTypeUnit(mainData.market_data.market_cap.usd, true) /* if decimal, then just display without changing the type unit */ }</p>
                 </div>
                 <div>
-                    <h3>24h M.Cap Change Percentage</h3>
+                    <h3>24h Mkt Cap Change Percentage</h3>
                     <p class="${changePercentageColor(mainData.market_data.market_cap_change_percentage_24h)}">${ changePercentageSign(mainData.market_data.market_cap_change_percentage_24h) }${ roundNumber(mainData.market_data.market_cap_change_percentage_24h, 2) /* round 2 decimal behind */  }%</p>
                 </div>
                 <div>
@@ -139,6 +149,9 @@ async function detailCryptoInformation(coinID) {
 
         <button onclick="location.reload()" class="btn-red text-base">Return</button>
     `
+
+    // add the crypto name on the website title
+    document.querySelector("head title").innerText = `${mainData.name} (${mainData.symbol.toUpperCase()}) - Live Stats | CryptoDash`
 
     // remove the search bar, when open the specific information display
     let searchBar = document.querySelectorAll(".searchBar")
@@ -213,8 +226,8 @@ const generateTable = async () => {
                     <h3 class="uppercase">${data.symbol}</h3>
                 </div>
             </td>
-            <td>$${ isDecimal(data.current_price) ? data.current_price : changeTypeUnit(data.current_price, true) /* if decimal, then just display without changing the type unit */ }</td>
-            <td>$${changeTypeUnit(Math.round(data.market_cap), false)}</td>
+            <td>$${ changeTypeUnit(data.current_price, true) }</td>
+            <td>$${ changeTypeUnit(Math.round(data.market_cap), false) }</td>
             <td class="${ changePercentageColor(data.price_change_percentage_24h) } change24hData">${ changePercentageSign(data.price_change_percentage_24h) }${ roundNumber(data.price_change_percentage_24h, 1) /* round 1 decimal behind */ }%</td>
         </tr>
         `
