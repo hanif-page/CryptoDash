@@ -206,7 +206,7 @@ const generateChart = async (url) => {
 
 const generateTable = async () => {
     // generate table with dynamic data 
-    let APIurl = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=false"
+    let APIurl = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=false&price_change_percentage=1h,7d"
     const mainData = await getData(APIurl)
     let countData = 0
 
@@ -228,7 +228,9 @@ const generateTable = async () => {
             </td>
             <td>$${ changeTypeUnit(data.current_price, true) }</td>
             <td>$${ changeTypeUnit(Math.round(data.market_cap), false) }</td>
+            <td class="${ changePercentageColor(data.price_change_percentage_1h_in_currency) } change24hData hidden lg:table-cell">${ changePercentageSign(data.price_change_percentage_1h_in_currency) }${ roundNumber(data.price_change_percentage_1h_in_currency, 1) /* round 1 decimal behind */ }%</td>
             <td class="${ changePercentageColor(data.price_change_percentage_24h) } change24hData">${ changePercentageSign(data.price_change_percentage_24h) }${ roundNumber(data.price_change_percentage_24h, 1) /* round 1 decimal behind */ }%</td>
+            <td class="${ changePercentageColor(data.price_change_percentage_7d_in_currency) } change24hData hidden lg:table-cell">${ changePercentageSign(data.price_change_percentage_7d_in_currency) }${ roundNumber(data.price_change_percentage_7d_in_currency, 1) /* round 1 decimal behind */ }%</td>
         </tr>
         `
         mainTableBody.innerHTML += tableRow

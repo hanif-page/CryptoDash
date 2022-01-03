@@ -1186,6 +1186,10 @@ Ensure the default browser behavior of the `hidden` attribute.
     display: block;
   }
 
+  .lg\:table-cell {
+    display: table-cell;
+  }
+
   .lg\:hidden {
     display: none;
   }
