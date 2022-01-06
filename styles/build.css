@@ -446,9 +446,22 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+
 * 
     {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Inter", sans-serif;
+}
+
+.website-name a, .copyright
+    {
+  font-family: "Poppins", sans-serif;
+}
+
+* 
+    {
   transition: background .5s, color .5s;
 }
 
@@ -1129,8 +1142,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .duration-500 {
   transition-duration: 500ms;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap');
 
 .hover\:opacity-70:hover {
   opacity: 0.7;
