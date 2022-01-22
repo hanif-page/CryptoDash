@@ -83,9 +83,11 @@ const roundNumber = (num, totalDecimalNumBehind) => {
     return Math.round(num * 10**totalDecimalNumBehind)/10**totalDecimalNumBehind
 }
 
-async function detailCryptoInformation(coinID) {
+var currentCoinID = ""
+async function detailCryptoInformation(coinID, currency = "usd", isInitialLoad) {
     startLoadingAnimation()
 
+    currentCoinID = coinID
     const APIurl = `https://api.coingecko.com/api/v3/coins/${coinID}?sparkline=true&localization=false&tickers=false&community_data=false&developer_data=false`
     const mainData = await getData(APIurl)
 
@@ -106,7 +108,7 @@ async function detailCryptoInformation(coinID) {
 
         <main class="specificInformationLayout w-full my-9">
             <div class="mb-6 w-full">
-                <h3 class="md:text-right mb-2">${mainData.name} Last 7 Days Price Chart</h3>
+                <h3 class="md:text-right mb-2">${mainData.name} Last 7 Days Price Chart (USD)</h3>
                 <div id="chartContainer" class="w-full">
                     <!-- the chart comes here !!! -->
                 </div>
@@ -117,12 +119,12 @@ async function detailCryptoInformation(coinID) {
                     <p>${mainData.market_cap_rank}</p>
                 </div>
                 <div>
-                    <h3>Price to USD</h3>
-                    <p>$ ${ changeTypeUnit(mainData.market_data.current_price.usd, true) }</p>
+                    <h3>Price to ${currency.toUpperCase()}</h3>
+                    <p>${currency==="usd" ? "$" : ""} ${ changeTypeUnit(mainData.market_data.current_price[currency], true) }</p>
                 </div>
                 <div>
-                    <h3>Market Cap</h3>
-                    <p>$ ${ isDecimal(mainData.market_data.market_cap.usd) ? mainData.market_data.market_cap.usd : changeTypeUnit(mainData.market_data.market_cap.usd, true) /* if decimal, then just display without changing the type unit */ }</p>
+                    <h3>Market Cap in ${currency.toUpperCase()}</h3>
+                    <p>${currency==="usd" ? "$" : ""} ${ isDecimal(mainData.market_data.market_cap[currency]) ? mainData.market_data.market_cap[currency] : changeTypeUnit(mainData.market_data.market_cap[currency], true) /* if decimal, then just display without changing the type unit */ }</p>
                 </div>
                 <div>
                     <h3>24h Mkt Cap Change Percentage</h3>
@@ -165,6 +167,32 @@ async function detailCryptoInformation(coinID) {
     scroll(0,0) // set the screen to the top
     mainContentContainer.innerHTML = displayDetailUI
     generateChart(APIurl)
+
+    // check if the isInitialLoad true or false. If true then display the currency converter
+    if(isInitialLoad)
+    {
+        // disply the currency converter
+        const selectCurrency = document.querySelector("#currencyList")
+        selectCurrency.innerHTML = ""
+        for(objectKey in mainData.market_data.current_price)
+        {
+            if(objectKey === "usd")
+            {
+                let option = `
+                <option selected class="cursor-pointer text-primary-black" value="">${objectKey.toUpperCase()}</option>
+                `
+                selectCurrency.innerHTML += option 
+            }
+            else  
+            {
+                let option = `
+                <option class="cursor-pointer text-primary-black" value="">${objectKey.toUpperCase()}</option>
+                `
+                selectCurrency.innerHTML += option
+            }
+        }
+        selectCurrency.classList.remove("hidden")
+    }
 
     stopLoadingAnimation()
 }
@@ -214,7 +242,7 @@ const generateTable = async () => {
     mainTableBody.innerHTML = ""
     mainData.forEach(data => {
         let tableRow = `
-        <tr data-coinid="${data.id}" onclick="detailCryptoInformation(this.dataset.coinid)"> 
+        <tr data-coinid="${data.id}" onclick="detailCryptoInformation(this.dataset.coinid, 'usd', true)"> 
             <td class="rank"> 
                 ${data.market_cap_rank}.
             </td>
@@ -259,4 +287,12 @@ searchBar.forEach(inp => {
             else tr.classList.remove("hidden")
         })
     })
+})
+
+// change currency functionality 
+const selectCurrency = document.querySelector("#currencyList")
+selectCurrency.addEventListener("change", function(){
+    let currentCurrency = this.options[this.selectedIndex].text;
+
+    detailCryptoInformation(currentCoinID, currentCurrency.toLowerCase(), false)
 })
