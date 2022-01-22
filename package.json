@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "@fnando/sparkline": "^0.3.10"
+    "@fnando/sparkline": "^0.3.10",
+    "browserify": "^17.0.0",
+    "currency-symbol-map": "^5.0.1"
   },
   "name": "cryptodash",
   "version": "1.0.0",
@@ -11,7 +13,8 @@
   "scripts": {
     "build": "npx tailwindcss -i ./styles/source.css -o ./styles/build.css",
     "build:watch": "npx tailwindcss -i ./styles/source.css -o ./styles/build.css --watch",
-    "build:minify": "npx tailwindcss -i ./styles/source.css -o ./styles/build.css --minify"
+    "build:minify": "npx tailwindcss -i ./styles/source.css -o ./styles/build.css --minify",
+    "build:browserify": "browserify ./scripts/currencySymbol.js -o ./scripts/bundle.js"
   },
   "keywords": [],
   "author": "",
