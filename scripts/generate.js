@@ -1,3 +1,10 @@
+// GLOBAL VARIABLE
+var currentCoinID = ""
+/*
+    I haven't set the global variable for the currency. So for the next update, set the global variable for the current currency, and it can be use and change anywhere.
+    For now, the initial currency is getting set to the USD 
+*/
+
 const changeTypeUnit = (number, isCompleteNumber = true) => {
     // example : number = 890890987, isCompleteNumber = true   
     // it will return 890,890,987
@@ -83,7 +90,6 @@ const roundNumber = (num, totalDecimalNumBehind) => {
     return Math.round(num * 10**totalDecimalNumBehind)/10**totalDecimalNumBehind
 }
 
-var currentCoinID = ""
 async function detailCryptoInformation(coinID, currency = "usd", isInitialLoad) {
     startLoadingAnimation()
 
@@ -120,11 +126,11 @@ async function detailCryptoInformation(coinID, currency = "usd", isInitialLoad) 
                 </div>
                 <div>
                     <h3>Price to ${currency.toUpperCase()}</h3>
-                    <p>${currency==="usd" ? "$" : ""} ${ changeTypeUnit(mainData.market_data.current_price[currency], true) }</p>
+                    <p>${currency==="usd" ? "$" : currency.toUpperCase()} ${ changeTypeUnit(mainData.market_data.current_price[currency], true) }</p>
                 </div>
                 <div>
                     <h3>Market Cap in ${currency.toUpperCase()}</h3>
-                    <p>${currency==="usd" ? "$" : ""} ${ isDecimal(mainData.market_data.market_cap[currency]) ? mainData.market_data.market_cap[currency] : changeTypeUnit(mainData.market_data.market_cap[currency], true) /* if decimal, then just display without changing the type unit */ }</p>
+                    <p>${currency==="usd" ? "$" : currency.toUpperCase()} ${ isDecimal(mainData.market_data.market_cap[currency]) ? mainData.market_data.market_cap[currency] : changeTypeUnit(mainData.market_data.market_cap[currency], true) /* if decimal, then just display without changing the type unit */ }</p>
                 </div>
                 <div>
                     <h3>24h Mkt Cap Change Percentage</h3>
@@ -172,8 +178,9 @@ async function detailCryptoInformation(coinID, currency = "usd", isInitialLoad) 
     if(isInitialLoad)
     {
         // disply the currency converter
-        const selectCurrency = document.querySelector("#currencyList")
-        selectCurrency.innerHTML = ""
+        const selectCurrency1 = document.querySelector("#currencyList1")
+        const selectCurrency2 = document.querySelector("#currencyList2")
+        selectCurrency2.innerHTML = ""
         for(objectKey in mainData.market_data.current_price)
         {
             if(objectKey === "usd")
@@ -181,17 +188,18 @@ async function detailCryptoInformation(coinID, currency = "usd", isInitialLoad) 
                 let option = `
                 <option selected class="cursor-pointer text-primary-black" value="">${objectKey.toUpperCase()}</option>
                 `
-                selectCurrency.innerHTML += option 
+                selectCurrency2.innerHTML += option 
             }
             else  
             {
                 let option = `
                 <option class="cursor-pointer text-primary-black" value="">${objectKey.toUpperCase()}</option>
                 `
-                selectCurrency.innerHTML += option
+                selectCurrency2.innerHTML += option
             }
         }
-        selectCurrency.classList.remove("hidden")
+        selectCurrency1.classList.add("hidden")
+        selectCurrency2.classList.remove("hidden")
     }
 
     stopLoadingAnimation()
@@ -232,9 +240,37 @@ const generateChart = async (url) => {
     chart.render()
 }
 
-const generateTable = async () => {
+const generateTable = async (currency = "usd", isInitialLoad = true) => {
+    if(!isInitialLoad) startLoadingAnimation()
+
+    const selectCurrency1 = document.querySelector("#currencyList1")
+    if(isInitialLoad)
+    {
+        const APIurl = `https://api.coingecko.com/api/v3/coins/bitcoin?sparkline=true&localization=false&tickers=false&community_data=false&developer_data=false`
+        const data = await getData(APIurl)
+
+        selectCurrency1.innerHTML = ""
+        for(objectKey in data.market_data.current_price)
+        {
+            if(objectKey === "usd") 
+            {
+                let option = `
+                <option selected class="cursor-pointer text-primary-black" value="">${objectKey.toUpperCase()}</option>
+                `
+                selectCurrency1.innerHTML += option
+            }
+            else 
+            {
+                let option = `
+                <option class="cursor-pointer text-primary-black" value="">${objectKey.toUpperCase()}</option>
+                `
+                selectCurrency1.innerHTML += option
+            }
+        }
+    }
+
     // generate table with dynamic data 
-    let APIurl = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=false&price_change_percentage=1h,7d"
+    let APIurl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&sparkline=false&price_change_percentage=1h,7d`
     const mainData = await getData(APIurl)
     let countData = 0
 
@@ -254,8 +290,8 @@ const generateTable = async () => {
                     <h3 class="uppercase">${data.symbol}</h3>
                 </div>
             </td>
-            <td>$${ changeTypeUnit(data.current_price, true) }</td>
-            <td>$${ changeTypeUnit(Math.round(data.market_cap), false) }</td>
+            <td>${currency.toLowerCase() === "usd" ? "$" : currency} ${ changeTypeUnit(data.current_price, true) }</td>
+            <td>${currency.toLowerCase() === "usd" ? "$" : currency} ${ changeTypeUnit(Math.round(data.market_cap), false) }</td>
             <td class="${ changePercentageColor(data.price_change_percentage_1h_in_currency) } change24hData hidden lg:table-cell">${ changePercentageSign(data.price_change_percentage_1h_in_currency) }${ roundNumber(data.price_change_percentage_1h_in_currency, 1) /* round 1 decimal behind */ }%</td>
             <td class="${ changePercentageColor(data.price_change_percentage_24h) } change24hData">${ changePercentageSign(data.price_change_percentage_24h) }${ roundNumber(data.price_change_percentage_24h, 1) /* round 1 decimal behind */ }%</td>
             <td class="${ changePercentageColor(data.price_change_percentage_7d_in_currency) } change24hData hidden lg:table-cell">${ changePercentageSign(data.price_change_percentage_7d_in_currency) }${ roundNumber(data.price_change_percentage_7d_in_currency, 1) /* round 1 decimal behind */ }%</td>
@@ -267,7 +303,7 @@ const generateTable = async () => {
     scroll(0,0) // set the screen to the top
     if(countData === mainData.length) stopLoadingAnimation() // stop the loading animation, if the table were completed
 }
-generateTable()
+generateTable("usd", true)
 
 let searchBar = document.querySelectorAll(".searchBar input")
 searchBar.forEach(inp => {
@@ -289,9 +325,17 @@ searchBar.forEach(inp => {
     })
 })
 
-// change currency functionality 
-const selectCurrency = document.querySelector("#currencyList")
-selectCurrency.addEventListener("change", function(){
+// change currency functionality (this is the select list on the main/table display)
+const selectCurrency1 = document.querySelector("#currencyList1")
+selectCurrency1.addEventListener("change", function(){
+    let currentCurrency = this.options[this.selectedIndex].text;
+
+    generateTable(currentCurrency, false)
+})
+
+// change currency functionality (this is for the select list on the detail information display)
+const selectCurrency2 = document.querySelector("#currencyList2")
+selectCurrency2.addEventListener("change", function(){
     let currentCurrency = this.options[this.selectedIndex].text;
 
     detailCryptoInformation(currentCoinID, currentCurrency.toLowerCase(), false)
