@@ -16,6 +16,15 @@ module.exports = {
         'secondary-black': "#333333",
         'profit-color': "#79EA86",
         'loss-color': "#E75757",
+        'c-black-purple': {
+          "dark": "#20133A",
+          "light": "#402574" 
+        },
+        'c-blue': {
+          "dark": "#223EDD",
+          "light": "#1E37C7"
+        },
+        'c-white': "#FCFBFE"
       },
       screens: {
         'xxs': '360px',
