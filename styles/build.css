@@ -1076,12 +1076,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-weight: 700;
 }
 
-.font-medium {
-  font-weight: 500;
+.font-semibold {
+  font-weight: 600;
 }
 
 .font-extrabold {
   font-weight: 800;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-light {
+  font-weight: 300;
 }
 
 .uppercase {
@@ -1120,6 +1128,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .\!text-loss-color {
   --tw-text-opacity: 1 !important;
   color: rgb(231 87 87 / var(--tw-text-opacity)) !important;
+}
+
+.text-secondary-blue {
+  --tw-text-opacity: 1;
+  color: rgb(81 119 158 / var(--tw-text-opacity));
 }
 
 .underline {
