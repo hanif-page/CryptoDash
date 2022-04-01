@@ -14,6 +14,11 @@
         @apply px-6 md:px-12
     }
 
+    .bg-main-gradient 
+    {
+        @apply bg-gradient-to-r from-c-black-purple-dark via-c-blue-dark to-c-black-purple-dark 
+    }
+
     .header-content nav ul li a
     {
         font-weight: 500;
@@ -26,12 +31,12 @@
         height: 1.35px;
         width: 100%;
         border-radius: .5px;
-        background: #3A5054;
+        background: #FCFBFE;
         transform: scale(0);
         transition: transform .3s;
     } 
 
-    .header-content nav ul li a:hover::after
+    .header-content nav ul li a:hover::after, .header-content nav ul li a.active-page::after
     {
         transform: scale(1)
     }
@@ -47,7 +52,7 @@
     */
     .main-table thead 
     {
-        @apply border-b-2 border-primary-black
+        @apply border-b-2 border-c-black-purple-dark
     }
 
     .main-table td
@@ -62,7 +67,7 @@
 
     .main-table tbody tr 
     {
-        @apply cursor-pointer transition duration-300 hover:bg-amber-100 border-b border-primary-black
+        @apply cursor-pointer transition duration-300 hover:bg-amber-100 border-b border-c-black-purple-dark
     } 
 
     .main-table thead .rank, .main-table tbody .rank
@@ -89,12 +94,12 @@
 
     .main-table tbody tr .cryptocurrencyCell h2 
     {
-        @apply font-bold text-primary-black
+        @apply font-bold text-c-black-purple-dark
     }
 
     .main-table tbody tr .cryptocurrencyCell h3
     {
-        @apply text-primary-black
+        @apply text-c-black-purple-dark
     }
 
     .main-table .change24hData
@@ -123,7 +128,7 @@
 
     .specificInformationLayout h3 
     {
-        @apply text-primary-blue text-lg font-bold
+        @apply text-c-black-purple-dark text-lg font-bold
     }
 
     .specificInformationLayout p

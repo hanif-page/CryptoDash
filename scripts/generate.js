@@ -107,8 +107,8 @@ async function detailCryptoInformation(coinID, currency = "usd", isInitialLoad) 
                 <img class="w-16 object-cover md:w-20 lg:w-24" src="${mainData.image.large}" alt="${mainData.name} Image">
             </a>
             <div>
-                <h1 class="font-bold text-2xl text-primary-black 2xl:text-3xl">${mainData.name}</h1>
-                <h2 class="uppercase text-xl text-primary-black 2xl:text-2xl">${mainData.symbol}</h2>
+                <h1 class="font-bold text-2xl text-c-black-purple-dark 2xl:text-3xl">${mainData.name}</h1>
+                <h2 class="uppercase text-xl text-c-black-purple-dark 2xl:text-2xl">${mainData.symbol}</h2>
             </div>
         </header>
 
@@ -186,14 +186,14 @@ async function detailCryptoInformation(coinID, currency = "usd", isInitialLoad) 
             if(objectKey === "usd")
             {
                 let option = `
-                <option selected class="cursor-pointer text-primary-black" value="">${objectKey.toUpperCase()}</option>
+                <option selected class="cursor-pointer text-c-black-purple-dark" value="">${objectKey.toUpperCase()}</option>
                 `
                 selectCurrency2.innerHTML += option 
             }
             else  
             {
                 let option = `
-                <option class="cursor-pointer text-primary-black" value="">${objectKey.toUpperCase()}</option>
+                <option class="cursor-pointer text-c-black-purple-dark" value="">${objectKey.toUpperCase()}</option>
                 `
                 selectCurrency2.innerHTML += option
             }
@@ -255,14 +255,14 @@ const generateTable = async (currency = "usd", isInitialLoad = true) => {
             if(objectKey === "usd") 
             {
                 let option = `
-                <option selected class="cursor-pointer text-primary-black" value="">${objectKey.toUpperCase()}</option>
+                <option selected class="cursor-pointer text-c-black-purple-dark" value="">${objectKey.toUpperCase()}</option>
                 `
                 selectCurrency1.innerHTML += option
             }
             else 
             {
                 let option = `
-                <option class="cursor-pointer text-primary-black" value="">${objectKey.toUpperCase()}</option>
+                <option class="cursor-pointer text-c-black-purple-dark" value="">${objectKey.toUpperCase()}</option>
                 `
                 selectCurrency1.innerHTML += option
             }

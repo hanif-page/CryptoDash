@@ -14,7 +14,8 @@ hamburgerNav.addEventListener('click', () => {
     hamburgerBar[2].classList.toggle("w-full")
     hamburgerBar[2].classList.toggle("w-3/4")
 
-    mobileNav.classList.toggle('translate-y-[75px]')
+    mobileNav.classList.toggle('-translate-y-[15px]')
+    mobileNav.classList.toggle('translate-y-[70px]')
 })
 
 // Quick Shortcut to the search bar
