@@ -1,4 +1,4 @@
 ## CryptoDash
 #### Note : 
-- The website is currently under a **development**.
-- Currently, we try to change the color palette of the site. But the main priority is changing the header color.
+- The website is currently **Stable**
+- Feel free to make a pull request, if there is a bug or an error on the site.
