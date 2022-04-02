@@ -48,3 +48,8 @@ const stopLoadingAnimation = () => {
     body.classList.remove("overflow-hidden")
     spinnerContainer.classList.add("opacity-0")
 }
+
+// generating copyright year
+const copyrightYear = document.querySelector(".copyright .yyyy")
+const currentDate = new Date()
+copyrightYear.innerHTML = currentDate.getFullYear()
